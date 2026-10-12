@@ -13,6 +13,7 @@ import { Input } from "@base-ui/react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const [name, setName] = useState("");
@@ -22,6 +23,8 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
+
   async function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
@@ -29,11 +32,17 @@ export default function SignUp() {
     setLoading(true);
 
     try {
-      await signUp.email({
+      const result = await signUp.email({
         name,
         email,
         password,
       });
+
+      if (result.error) {
+        setError(result.error.message ?? "Fail to sign up");
+      } else {
+        router.push("/dashboard");
+      }
     } catch (error) {
       setError("An unexpected error occurred");
     } finally {
@@ -52,7 +61,7 @@ export default function SignUp() {
             Create an account to start tracking your job applications.
           </CardDescription>
         </CardHeader>
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <CardContent className="space-y-4">
             {error && (
               <div className="roundermd bg-destructive/15 p-3 text-sm text-destructive">

@@ -28,18 +28,7 @@ export default function SignIn() {
         </CardHeader>
         <form className="space-y-4">
           <CardContent className="space-y-4">
-            {/* <div className="space-y-2">
-              <Label htmlFor="name" className="text-gray-700">
-                Name
-              </Label>
-              <Input
-                id="name"
-                type="text"
-                placeholder="John Doe"
-                required
-                className="border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary w-full p-1 rounded-sm"
-              />
-            </div> */}
+
             <div>
               <Label htmlFor="email">Email</Label>
               <Input
