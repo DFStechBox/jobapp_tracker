@@ -44,7 +44,9 @@ export default function SignUp() {
         router.push("/dashboard");
       }
     } catch (error) {
-      setError("An unexpected error occurred");
+      setError(
+        error instanceof Error ? error.message : "An unexpected error occurred",
+      );
     } finally {
       setLoading(false);
     }
